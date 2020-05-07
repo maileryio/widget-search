@@ -1,3 +1,6 @@
 {
-    "license": "BSD-3-Clause"
+    "license": "BSD-3-Clause",
+    "dependencies": {
+        "@maileryio/widget-search-assets": "git+ssh://git@github.com/maileryio/widget-search-assets.git#master"
+    }
 }
