@@ -1,6 +1,3 @@
 {
-    "dependencies": {
-        "@maileryio/widget-search": "1.0.*"
-    },
     "license": "BSD-3-Clause"
 }
