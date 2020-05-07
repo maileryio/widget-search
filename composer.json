@@ -1,16 +1,18 @@
 {
-    "name": "maileryio/_____",
+    "name": "maileryio/widget-search",
     "type": "library",
-    "description": "_____",
+    "description": "Search Widget for Mailery Platform",
     "keywords": [
-        "_____"
+        "yii",
+        "widget",
+        "search"
     ],
-    "homepage": "https://github.com/maileryio/_____",
+    "homepage": "https://github.com/maileryio/widget-search",
     "license": "BSD-3-Clause",
     "support": {
-        "source": "https://github.com/maileryio/_____",
-        "issues": "https://github.com/maileryio/_____/issues",
-        "wiki": "https://github.com/maileryio/_____/wiki"
+        "source": "https://github.com/maileryio/widget-search",
+        "issues": "https://github.com/maileryio/widget-search/issues",
+        "wiki": "https://github.com/maileryio/widget-search/wiki"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -25,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Mailery\\_____\\": "src"
+            "Mailery\\Widget\\Search\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Mailery\\_____\\Tests\\": "tests"
+            "Mailery\\Widget\\Search\\Tests\\": "tests"
         }
     },
     "scripts": {
