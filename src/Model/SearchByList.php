@@ -21,12 +21,12 @@ class SearchByList extends ArrayCollection
      */
     public function getValueOptions(): array
     {
-        return array_map(
-            function (SearchBy $searchBy) {
-                return $searchBy->getValue();
-            },
-            $this->toArray()
-        );
+        $options = [];
+        foreach ($this->getIterator() as $searchBy) {
+            $options[$searchBy->getValue()] = $searchBy->getLabel();
+        }
+
+        return array_filter($options);
     }
 
     /**

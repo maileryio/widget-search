@@ -19,7 +19,43 @@ abstract class SearchBy
     /**
      * @var string|null
      */
+    private ?string $label = null;
+
+    /**
+     * @var string|null
+     */
+    private ?string $value = null;
+
+    /**
+     * @var string|null
+     */
     private ?string $searchPhrase = null;
+
+    /**
+     * @param string|null $label
+     * @return self
+     */
+    public function withLabel(?string $label): self
+    {
+        $new = clone $this;
+
+        $new->label = $label;
+
+        return $new;
+    }
+
+    /**
+     * @param string|null $value
+     * @return self
+     */
+    public function withValue(?string $value): self
+    {
+        $new = clone $this;
+
+        $new->value = $value;
+
+        return $new;
+    }
 
     /**
      * @param string|null $searchPhrase
@@ -37,9 +73,17 @@ abstract class SearchBy
     /**
      * @return string|null
      */
+    public function getLabel(): ?string
+    {
+        return $this->label;
+    }
+
+    /**
+     * @return string|null
+     */
     public function getValue(): ?string
     {
-        return null;
+        return $this->value;
     }
 
     /**

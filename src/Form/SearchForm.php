@@ -23,17 +23,17 @@ class SearchForm extends Form
     /**
      * @var string|null
      */
-    private ?string $searchBy;
+    private ?string $searchBy = null;
 
     /**
-     * @var SearchByList
+     * @var SearchByList|null
      */
-    private SearchByList $searchByList;
+    private ?SearchByList $searchByList = null;
 
     /**
      * @var string|null
      */
-    private ?string $searchPhrase;
+    private ?string $searchPhrase = null;
 
     /**
      * @param Request $request
@@ -48,40 +48,14 @@ class SearchForm extends Form
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function __toString()
-    {
-        $this->setAttributes([
-            'class' => 'form-inline float-left',
-            'onsubmit' => 'return this.querySelector(\'input[name="search"]\').value !== \'\'',
-        ]);
-
-//        if (!$this->searchByList->isEmpty()) {
-//            $searchBySelect = F::select('Search by', $this->searchByList->getValueOptions())
-//                ->setTemplate('');
-//        } else {
-//            $searchBySelect = '';
-//        }
-
-        $submitButton = F::submit('<i class="mdi mdi-magnify"></i>', ['class' => 'btn btn-sm btn-outline-secondary']);
-
-        $searchInput = $this->offsetGet('search');
-        $searchInput
-            ->setTemplate('<div class="input-group mx-sm-1 mb-2">{{ input }}<div class="input-group-append">' . $submitButton . '</div></div>')
-            ->setAttributes([
-                'class' => 'form-control form-control-sm',
-                'placeholder' => 'Search phrase...',
-            ]);
-
-        return $this->getOpeningTag() . $searchInput . $this->getClosingTag();
-    }
-
-    /**
      * @return SearchBy|null
      */
     public function getSearchBy(): ?SearchBy
     {
+        if ($this->searchByList === null) {
+            return null;
+        }
+
         return $this->searchByList->findByValue($this->searchBy);
     }
 
@@ -94,6 +68,18 @@ class SearchForm extends Form
     }
 
     /**
+     * @return array
+     */
+    public function getSearchByValueOptions(): array
+    {
+        if ($this->searchByList === null) {
+            return [];
+        }
+
+        return $this->searchByList->getValueOptions();
+    }
+
+    /**
      * @param SearchByList $searchByList
      * @return self
      */
@@ -102,6 +88,7 @@ class SearchForm extends Form
         $new = clone $this;
 
         $new->searchByList = $searchByList;
+        $this['searchBy']->setOptions($this->getSearchByValueOptions());
 
         return $new;
     }
@@ -114,6 +101,7 @@ class SearchForm extends Form
         return [
             'search' => F::text('Search phrase...')
                 ->setValue($this->searchPhrase),
+            'searchBy' => F::select('Search by', $this->getSearchByValueOptions()),
         ];
     }
 }

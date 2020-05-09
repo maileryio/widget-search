@@ -21,7 +21,11 @@
         "cycle/orm": "^1.2",
         "form-manager/form-manager": "^6.0",
         "foxy/foxy": "^1.0",
+        "maileryio/mailery-web": "dev-master",
+        "yiisoft/assets": "^1.0@dev",
         "yiisoft/data": "^3.0@dev",
+        "yiisoft/html": "^3.0@dev",
+        "yiisoft/widget": "^3.0@dev",
         "yiisoft/yii-cycle": "^3.0@dev"
     },
     "require-dev": {
@@ -31,7 +35,8 @@
         "phpunit/phpunit": "^9.0",
         "phan/phan": "^2.4",
         "friendsofphp/php-cs-fixer": "^2.16",
-        "yiisoft/di": "@dev"
+        "yiisoft/di": "@dev",
+        "yiisoft/composer-config-plugin": "dev-master"
     },
     "autoload": {
         "psr-4": {
