@@ -35,7 +35,7 @@ final class SelectDataReader implements
     SortableDataInterface,
     IteratorAggregate
 {
-    /** @var Select|SelectQuery */
+    /** @var Select|SelectQuery|iterable */
     private $query;
     private ?int $limit = null;
     private ?int $offset = null;
@@ -43,9 +43,10 @@ final class SelectDataReader implements
     private ?Search $search = null;
     private CachedCount $countCache;
     private CachedCollection $itemsCache;
+    private CachedCollection $oneItemCache;
 
     /**
-     * @param Select|SelectQuery $query
+     * @param Select|SelectQuery|iterable $query
      */
     public function __construct($query)
     {
@@ -60,6 +61,7 @@ final class SelectDataReader implements
         $this->query = clone $query;
         $this->countCache = new CachedCount($this->query);
         $this->itemsCache = new CachedCollection();
+        $this->oneItemCache = new CachedCollection();
     }
 
     public function getSort(): ?Sort
@@ -109,13 +111,30 @@ final class SelectDataReader implements
         if ($this->itemsCache->getCollection() !== null) {
             $collection = $this->itemsCache->getCollection();
         } else {
-            $query = $this->buildQuery();
-            $this->itemsCache->setCollection($query->fetchAll());
+        $query = $this->buildQuery();
+        $this->itemsCache->setCollection($query->fetchAll());
 
             $collection = $this->itemsCache->getCollection();
         }
 
         return $collection ?? new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function readOne()
+    {
+        if (!$this->oneItemCache->isCollected()) {
+            $item = $this->itemsCache->isCollected()
+                // get first item from cached collection
+                ? $this->itemsCache->getGenerator()->current()
+                // read data with limit 1
+                : $this->withLimit(1)->getIterator()->current();
+            $this->oneItemCache->setCollection($item === null ? [] : [$item]);
+        }
+
+        return $this->oneItemCache->getGenerator()->current();
     }
 
     /**
@@ -137,6 +156,7 @@ final class SelectDataReader implements
         if ($this->search !== $search) {
             $this->search = $search;
             $this->itemsCache = new CachedCollection();
+            $this->oneItemCache = new CachedCollection();
         }
     }
 
@@ -145,6 +165,7 @@ final class SelectDataReader implements
         if ($this->sorting !== $sorting) {
             $this->sorting = $sorting;
             $this->itemsCache = new CachedCollection();
+            $this->oneItemCache = new CachedCollection();
         }
     }
 
@@ -161,6 +182,7 @@ final class SelectDataReader implements
         if ($this->offset !== $offset) {
             $this->offset = $offset;
             $this->itemsCache = new CachedCollection();
+            $this->oneItemCache = new CachedCollection();
         }
     }
 
