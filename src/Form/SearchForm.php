@@ -16,7 +16,6 @@ use FormManager\Factory as F;
 use FormManager\Form;
 use Mailery\Widget\Search\Model\SearchBy;
 use Mailery\Widget\Search\Model\SearchByList;
-use Psr\Http\Message\ServerRequestInterface as Request;
 
 class SearchForm extends Form
 {
@@ -26,24 +25,17 @@ class SearchForm extends Form
     private ?string $searchBy = null;
 
     /**
-     * @var SearchByList|null
-     */
-    private ?SearchByList $searchByList = null;
-
-    /**
      * @var string|null
      */
     private ?string $searchPhrase = null;
 
     /**
-     * @param Request $request
+     * @var SearchByList|null
      */
-    public function __construct(Request $request)
-    {
-        $queryParams = $request->getQueryParams();
+    private ?SearchByList $searchByList = null;
 
-        $this->searchBy = $queryParams['searchBy'] ?? null;
-        $this->searchPhrase = $queryParams['search'] ?? null;
+    public function __construct()
+    {
         parent::__construct($this->inputs());
     }
 
@@ -52,11 +44,15 @@ class SearchForm extends Form
      */
     public function getSearchBy(): ?SearchBy
     {
-        if ($this->searchByList === null) {
+        if ($this->searchByList === null || $this->searchPhrase === null) {
             return null;
         }
 
-        return $this->searchByList->findByValue($this->searchBy);
+        if (($searchBy = $this->searchByList->findByValue($this->searchBy)) !== null) {
+            return $searchBy->withSearchPhrase($this->searchPhrase);
+        }
+
+        return null;
     }
 
     /**
@@ -77,6 +73,34 @@ class SearchForm extends Form
         }
 
         return $this->searchByList->getValueOptions();
+    }
+
+    /**
+     * @param string|null $searchBy
+     * @return self
+     */
+    public function withSearchBy(?string $searchBy): self
+    {
+        $new = clone $this;
+        $new->searchBy = $searchBy;
+
+        $new['searchBy']->setValue($new->searchBy);
+
+        return $new;
+    }
+
+    /**
+     * @param string|null $searchPhrase
+     * @return self
+     */
+    public function withSearchPhrase(?string $searchPhrase): self
+    {
+        $new = clone $this;
+        $new->searchPhrase = $searchPhrase;
+
+        $new['search']->setValue($new->searchPhrase);
+
+        return $new;
     }
 
     /**

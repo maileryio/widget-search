@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Mailery\Widget\Search\Model;
 
-use Cycle\ORM\Select;
+use Yiisoft\Data\Reader\Filter\FilterInterface;
 
 abstract class SearchBy
 {
@@ -87,6 +87,14 @@ abstract class SearchBy
     }
 
     /**
+     * @return string|null
+     */
+    public function getSearchPhrase(): ?string
+    {
+        return $this->searchPhrase;
+    }
+
+    /**
      * @param string|null $value
      * @return bool
      */
@@ -96,22 +104,7 @@ abstract class SearchBy
     }
 
     /**
-     * @param Select $query
-     * @return Select
+     * @return FilterInterface
      */
-    public function buildQuery(Select $query): Select
-    {
-        if (empty($this->searchPhrase)) {
-            return $query;
-        }
-
-        return $this->buildQueryInternal($query, $this->searchPhrase);
-    }
-
-    /**
-     * @param Select $query
-     * @param string $searchPhrase
-     * @return Select
-     */
-    abstract protected function buildQueryInternal(Select $query, string $searchPhrase): Select;
+    abstract public function getFilter(): FilterInterface;
 }
