@@ -14,7 +14,7 @@ namespace Mailery\Widget\Search\Model;
 
 use Yiisoft\Data\Reader\Filter\FilterInterface;
 
-abstract class SearchBy
+abstract class SearchBy implements FilterInterface
 {
     /**
      * @var string|null
@@ -102,9 +102,4 @@ abstract class SearchBy
     {
         return $value === $this->getValue();
     }
-
-    /**
-     * @return FilterInterface
-     */
-    abstract public function getFilter(): FilterInterface;
 }
