@@ -74,7 +74,7 @@ class SearchWidget extends Widget
 
         $searchBy = $this->form->getSearchBy();
 
-        return Html::tag(
+        return (string) Html::tag(
             'ui-widget-search',
             '',
             array_merge(
