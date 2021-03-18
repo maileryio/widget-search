@@ -24,7 +24,7 @@
         "maileryio/mailery-web": "dev-master",
         "yiisoft/assets": "^1.0@dev",
         "yiisoft/data": "^3.0@dev",
-        "yiisoft/html": "^3.0@dev",
+        "yiisoft/html": "^1.0",
         "yiisoft/widget": "^3.0@dev",
         "yiisoft/yii-cycle": "^3.0@dev"
     },
