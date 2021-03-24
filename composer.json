@@ -35,8 +35,7 @@
         "phpunit/phpunit": "^9.0",
         "phan/phan": "^2.4",
         "friendsofphp/php-cs-fixer": "^2.16",
-        "yiisoft/di": "@dev",
-        "yiisoft/composer-config-plugin": "dev-master"
+        "yiisoft/di": "@dev"
     },
     "autoload": {
         "psr-4": {
