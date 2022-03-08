@@ -70,7 +70,9 @@ class SearchWidget extends Widget
      */
     protected function run(): string
     {
-        $this->registerAssets();
+        $this->assetManager->register([
+            SearchAssetBundle::class,
+        ]);
 
         $searchBy = $this->form->getSearchBy();
 
@@ -88,13 +90,4 @@ class SearchWidget extends Widget
         );
     }
 
-    /**
-     * @return void
-     */
-    private function registerAssets()
-    {
-        $this->assetManager->register([
-            SearchAssetBundle::class,
-        ]);
-    }
 }

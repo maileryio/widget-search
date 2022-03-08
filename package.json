@@ -10,7 +10,6 @@
         "@composer-asset/maileryio--mailery-user": "file:./vendor/foxy/composer-asset/maileryio/mailery-user",
         "@composer-asset/maileryio--mailery-web": "file:./vendor/foxy/composer-asset/maileryio/mailery-web",
         "@composer-asset/maileryio--widget-dataview": "file:./vendor/foxy/composer-asset/maileryio/widget-dataview",
-        "@composer-asset/maileryio--widget-form": "file:./vendor/foxy/composer-asset/maileryio/widget-form",
         "@composer-asset/maileryio--widget-link": "file:./vendor/foxy/composer-asset/maileryio/widget-link",
         "@maileryio/widget-search-assets": "git+ssh://git@github.com/maileryio/widget-search-assets.git#master"
     }

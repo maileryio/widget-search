@@ -12,12 +12,11 @@ declare(strict_types=1);
 
 namespace Mailery\Widget\Search\Form;
 
-use FormManager\Factory as F;
-use FormManager\Form;
 use Mailery\Widget\Search\Model\SearchBy;
 use Mailery\Widget\Search\Model\SearchByList;
+use Yiisoft\Form\FormModel;
 
-class SearchForm extends Form
+class SearchForm extends FormModel
 {
     /**
      * @var string|null
@@ -34,9 +33,40 @@ class SearchForm extends Form
      */
     private ?SearchByList $searchByList = null;
 
-    public function __construct()
+    /**
+     * @param string|null $searchBy
+     * @return self
+     */
+    public function withSearchBy(?string $searchBy): self
     {
-        parent::__construct($this->inputs());
+        $new = clone $this;
+        $new->searchBy = $searchBy;
+
+        return $new;
+    }
+
+    /**
+     * @param string|null $searchPhrase
+     * @return self
+     */
+    public function withSearchPhrase(?string $searchPhrase): self
+    {
+        $new = clone $this;
+        $new->searchPhrase = $searchPhrase;
+
+        return $new;
+    }
+
+    /**
+     * @param SearchByList $searchByList
+     * @return self
+     */
+    public function withSearchByList(SearchByList $searchByList): self
+    {
+        $new = clone $this;
+        $new->searchByList = $searchByList;
+
+        return $new;
     }
 
     /**
@@ -66,6 +96,17 @@ class SearchForm extends Form
     /**
      * @return array
      */
+    public function getAttributeLabels(): array
+    {
+        return [
+            'searchBy' => 'Search by',
+            'searchPhrase' => 'Search phrase...',
+        ];
+    }
+
+    /**
+     * @return array
+     */
     public function getSearchByValueOptions(): array
     {
         if ($this->searchByList === null) {
@@ -73,59 +114,5 @@ class SearchForm extends Form
         }
 
         return $this->searchByList->getValueOptions();
-    }
-
-    /**
-     * @param string|null $searchBy
-     * @return self
-     */
-    public function withSearchBy(?string $searchBy): self
-    {
-        $new = clone $this;
-        $new->searchBy = $searchBy;
-
-        $new['searchBy']->setValue($new->searchBy);
-
-        return $new;
-    }
-
-    /**
-     * @param string|null $searchPhrase
-     * @return self
-     */
-    public function withSearchPhrase(?string $searchPhrase): self
-    {
-        $new = clone $this;
-        $new->searchPhrase = $searchPhrase;
-
-        $new['search']->setValue($new->searchPhrase);
-
-        return $new;
-    }
-
-    /**
-     * @param SearchByList $searchByList
-     * @return self
-     */
-    public function withSearchByList(SearchByList $searchByList): self
-    {
-        $new = clone $this;
-
-        $new->searchByList = $searchByList;
-        $this['searchBy']->setOptions($this->getSearchByValueOptions());
-
-        return $new;
-    }
-
-    /**
-     * @return array
-     */
-    private function inputs(): array
-    {
-        return [
-            'search' => F::text('Search phrase...')
-                ->setValue($this->searchPhrase),
-            'searchBy' => F::select('Search by', $this->getSearchByValueOptions()),
-        ];
     }
 }
