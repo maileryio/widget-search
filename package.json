@@ -1,16 +1,6 @@
 {
     "license": "BSD-3-Clause",
     "dependencies": {
-        "@composer-asset/maileryio--mailery-activity-log": "file:./vendor/foxy/composer-asset/maileryio/mailery-activity-log",
-        "@composer-asset/maileryio--mailery-brand": "file:./vendor/foxy/composer-asset/maileryio/mailery-brand",
-        "@composer-asset/maileryio--mailery-icon": "file:./vendor/foxy/composer-asset/maileryio/mailery-icon",
-        "@composer-asset/maileryio--mailery-menu": "file:./vendor/foxy/composer-asset/maileryio/mailery-menu",
-        "@composer-asset/maileryio--mailery-menu-navbar": "file:./vendor/foxy/composer-asset/maileryio/mailery-menu-navbar",
-        "@composer-asset/maileryio--mailery-menu-sidebar": "file:./vendor/foxy/composer-asset/maileryio/mailery-menu-sidebar",
-        "@composer-asset/maileryio--mailery-user": "file:./vendor/foxy/composer-asset/maileryio/mailery-user",
-        "@composer-asset/maileryio--mailery-web": "file:./vendor/foxy/composer-asset/maileryio/mailery-web",
-        "@composer-asset/maileryio--widget-dataview": "file:./vendor/foxy/composer-asset/maileryio/widget-dataview",
-        "@composer-asset/maileryio--widget-link": "file:./vendor/foxy/composer-asset/maileryio/widget-link",
         "@maileryio/widget-search-assets": "git+ssh://git@github.com/maileryio/widget-search-assets.git#master"
     }
 }
