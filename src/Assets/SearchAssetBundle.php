@@ -25,7 +25,7 @@ class SearchAssetBundle extends AssetBundle
     /**
      * {@inheritdoc}
      */
-    public ?string $baseUrl = '@web/@maileryio/widget-search-assets';
+    public ?string $baseUrl = '@assetsUrl/@maileryio/widget-search-assets';
 
     /**
      * {@inheritdoc}
